@@ -204,6 +204,16 @@ RCT_EXPORT_METHOD(clear:(RCTPromiseResolveBlock)resolve)
     resolve((id)kCFBooleanTrue);
 }
 
+RCT_EXPORT_METHOD(openBluetoothSetting)
+{
+    NSString *settingsUrl= @"App-Prefs:root=Bluetooth";
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(openURL:options:completionHandler:)]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:settingsUrl] options:@{} completionHandler:^(BOOL success) {
+            NSLog(@"URL opened bluetooth");
+        }];
+    }
+}
+
 #pragma mark - BLEDelegate
 
 - (void)bleDidReceiveData:(unsigned char *)data length:(int)length
